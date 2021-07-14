@@ -87,7 +87,7 @@ public class Tiger extends Animal {
 
     @Override
     protected double getBreedingProbability() {
-        return 0.04;
+        return 0.08;
     }
 
     @Override

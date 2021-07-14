@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Animal {
+
     // Whether the animal is alive or not.
     protected static final Random RANDOM = new Random();
     private boolean alive = true;
@@ -12,21 +13,22 @@ public abstract class Animal {
     protected Location location;
     // The field occupied.
     protected Field field;
-    // Individual characteristics (instance fields).
+
     // The fox's age.
-    protected int age=0;
+    protected int age = 0;
 
 
-    public void  initialize(boolean randomAge, Field field, Location location){
+    public void initialize(boolean randomAge, Field field, Location location) {
         this.field = field;
         setLocation(location);
-        if(randomAge){
+        if (randomAge) {
             age = RANDOM.nextInt(getMaxAge());
         }
-
     }
+
     protected abstract Location moveToNewLocation();
-    public void act(List<Animal> newAnimals){
+
+    public void act(List<Animal> newAnimals) {
         incrementAge();
         if (isAlive()) {
             giveBirth(newAnimals);
@@ -41,8 +43,8 @@ public abstract class Animal {
                 setDead();
             }
         }
+    }
 
-        }
     /**
      * Check whether the animal is alive or not.
      *
@@ -65,7 +67,7 @@ public abstract class Animal {
         return location;
     }
 
-    public abstract int getMaxAge();
+    protected abstract int getMaxAge();
 
     /**
      * Increase the age. This could result in the rabbit's death.
@@ -76,7 +78,6 @@ public abstract class Animal {
             setDead();
         }
     }
-
 
     /**
      * Indicate that the fox is no longer alive. It is removed from the field.
@@ -117,7 +118,10 @@ public abstract class Animal {
     }
 
     protected abstract double getBreedingProbability();
+
     protected abstract int getMaxLitterSize();
+
+    protected abstract int getBreedingAge();
 
     /**
      * A rabbit can breed if it has reached the breeding age.
@@ -128,10 +132,9 @@ public abstract class Animal {
         return age >= getBreedingAge();
     }
 
-    protected abstract int getBreedingAge();
 
-    private Animal createYoung(boolean randomAge, Field field, Location location){
-        return AnimalFactory.createAnimal(getClass(),field,location);
+    private Animal createYoung(boolean randomAge, Field field, Location location) {
+        return AnimalFactory.createAnimal(getClass(), field, location);
     }
 
     /**
@@ -151,4 +154,5 @@ public abstract class Animal {
             newAnimals.add(young);
         }
     }
+    protected abstract int getFoodValue(Animal animal);
 }

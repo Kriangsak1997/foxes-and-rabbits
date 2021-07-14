@@ -52,8 +52,8 @@ public class Field {
      * the location it will be lost.
      *
      * @param animal The animal to be placed.
-     * @param row Row coordinate of the location.
-     * @param col Column coordinate of the location.
+     * @param row    Row coordinate of the location.
+     * @param col    Column coordinate of the location.
      */
     public void place(Object animal, int row, int col) {
         place(animal, new Location(row, col));
@@ -63,7 +63,7 @@ public class Field {
      * Place an animal at the given location. If there is already an animal at
      * the location it will be lost.
      *
-     * @param animal The animal to be placed.
+     * @param animal   The animal to be placed.
      * @param location Where to place the animal.
      */
     public void place(Object animal, Location location) {

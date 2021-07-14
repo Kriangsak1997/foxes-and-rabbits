@@ -31,7 +31,12 @@ public class Rabbit extends Animal {
     }
 
     @Override
-    public void initialize(boolean randomAge, io.muic.ooc.fab.Field field, Location location) {
+    protected int getFoodValue(Animal animal) {
+        return AnimalType.RABBIT.getFoodValue();
+    }
+
+    @Override
+    public void initialize(boolean randomAge, Field field, Location location) {
         super.initialize(randomAge, field, location);
     }
 }

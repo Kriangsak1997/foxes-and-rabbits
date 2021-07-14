@@ -18,11 +18,11 @@ public class AnimalFactory {
 
     public static Animal createAnimal(AnimalType animalType, Field field, Location location) {
         Class animalClass = animalClassMap.get(animalType);
-       return createAnimal(animalClass,field,location);
-        }
+        return createAnimal(animalClass, field, location);
+    }
 
     public static Animal createAnimal(Class animalClass, Field field, Location location) {
-        if(animalClass!=null) {
+        if (animalClass != null) {
             try {
                 Animal animal = (Animal) animalClass.newInstance();
                 animal.initialize(true, field, location);
@@ -33,6 +33,6 @@ public class AnimalFactory {
                 e.printStackTrace();
             }
         }
-        throw new  IllegalArgumentException("Unknown animalType");
+        throw new IllegalArgumentException("Unknown animalType");
     }
-    }
+}

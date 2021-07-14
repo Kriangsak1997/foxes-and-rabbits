@@ -95,7 +95,7 @@ public class Simulator {
         // Provide space for newborn rabbits.
         List<Animal> newAnimals = new ArrayList<>();
         // Let all rabbits act.
-        for (Iterator<Animal> it = animals.iterator(); it.hasNext();) {
+        for (Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
             Animal animal = it.next();
             animal.act(newAnimals);
             if (!animal.isAlive()) {
@@ -114,7 +114,7 @@ public class Simulator {
     public void reset() {
         step = 0;
         animals.clear();
-        new FieldPopulator().populat(field,animals);
+        new FieldPopulator().populat(field, animals);
 
         // Show the starting state in the view.
         view.showStatus(step, field);

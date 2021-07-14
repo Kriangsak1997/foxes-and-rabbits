@@ -15,39 +15,36 @@ public class Fox extends Animal {
     /**
      * Create a fox. A fox can be created as a new born (age zero and not
      * hungry) or with a random age and food level.
-     *
+     * @param  field
      * @param randomAge If true, the fox will have random age and hunger level.
+     * @param location
      */
-    public Fox(boolean randomAge, Field field, Location location) {
-        super(randomAge, field, location);
+    @Override
+    public void  initialize(boolean randomAge, Field field, Location location) {
+        super.initialize(randomAge, field, location);
         foodLevel = RANDOM.nextInt(RABBIT_FOOD_VALUE);
+    }
+
+    @Override
+    protected Location moveToNewLocation() {
+        Location newLocation = findFood();
+        if (newLocation == null) {
+            // No food found - try to move to a free location.
+            newLocation = field.freeAdjacentLocation(location);
+        }
+        return newLocation ;
     }
 
     /**
      * This is what the fox does most of the time: it hunts for rabbits. In the
      * process, it might breed, die of hunger, or die of old age.
      *
-     * @param newFoxes A list to return newly born foxes.
+     * @param newAnimal A list to return newly born foxes.
      */
-    public void hunt(List<Fox> newFoxes) {
-        incrementAge();
+    @Override
+    public void act(List<Animal> newAnimal) {
         incrementHunger();
-        if (isAlive()) {
-            giveBirth(newFoxes);
-            // Move towards a source of food if found.
-            Location newLocation = findFood();
-            if (newLocation == null) {
-                // No food found - try to move to a free location.
-                newLocation = field.freeAdjacentLocation(location);
-            }
-            // See if it was possible to move.
-            if (newLocation != null) {
-                setLocation(newLocation);
-            } else {
-                // Overcrowding.
-                setDead();
-            }
-        }
+        super.act(newAnimal);
     }
 
     /**
@@ -104,8 +101,4 @@ public class Fox extends Animal {
         return 15;
     }
 
-    @Override
-    protected Animal createYoung(boolean randomAge, Field field, Location location) {
-        return new Fox(randomAge, field, location);
-    }
 }

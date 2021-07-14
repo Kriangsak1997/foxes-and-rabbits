@@ -5,36 +5,9 @@ import java.util.Random;
 
 public class Rabbit extends Animal {
     // A shared random number generator to control breeding.
-
-    /**
-     * Create a new rabbit. A rabbit may be created with age zero (a new born)
-     * or with a random age.
-     *
-     * @param randomAge If true, the rabbit will have a random age.
-     */
-    public Rabbit(boolean randomAge, Field field, Location location) {
-        super(randomAge, field, location);
-    }
-
-    /**
-     * This is what the rabbit does most of the time - it runs around. Sometimes
-     * it will breed or die of old age.
-     *
-     * @param newRabbits A list to return newly born rabbits.
-     */
-    public void run(List<Rabbit> newRabbits) {
-        incrementAge();
-        if (isAlive()) {
-            giveBirth(newRabbits);
-            // Try to move into a free location.
-            Location newLocation = field.freeAdjacentLocation(location);
-            if (newLocation != null) {
-                setLocation(newLocation);
-            } else {
-                // Overcrowding.
-                setDead();
-            }
-        }
+    @Override
+    protected Location moveToNewLocation() {
+        return field.freeAdjacentLocation(getLocation());
     }
 
     @Override
@@ -58,7 +31,7 @@ public class Rabbit extends Animal {
     }
 
     @Override
-    protected Animal createYoung(boolean randomAge, Field field, Location location) {
-        return new Rabbit(randomAge, field, location);
+    public void initialize(boolean randomAge, io.muic.ooc.fab.Field field, Location location) {
+        super.initialize(randomAge, field, location);
     }
 }
